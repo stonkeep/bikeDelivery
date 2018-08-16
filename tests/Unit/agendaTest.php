@@ -9,8 +9,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class agendaTest extends TestCase
 {
     /**
-     * A basic test example.
-     *
      * @return void
      * TODO criação dos testes CRUD
      */
