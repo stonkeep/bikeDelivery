@@ -42,5 +42,7 @@ class userTest extends TestCase
         factory(User::class)->create();
         $user = User::first();
         $user->delete();
+        $user = User::first();
+        $this->assertEmpty($user);
     }
 }
