@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCriclistasTable extends Migration
+class CreateCiclistasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class CreateCriclistasTable extends Migration
      */
     public function up()
     {
-        Schema::create('criclistas', function (Blueprint $table) {
+        Schema::create('ciclistas', function (Blueprint $table) {
             $table->increments('id');
+            $table->bigInteger('cpf');
+            $table->unsignedInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\criclistas;
+use App\ciclista;
 use Illuminate\Http\Request;
 
-class CriclistasController extends Controller
+class CiclistasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class CriclistasController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\criclistas  $criclistas
+     * @param  \App\ciclista  $criclistas
      * @return \Illuminate\Http\Response
      */
-    public function show(criclistas $criclistas)
+    public function show(ciclista $criclistas)
     {
         //
     }
@@ -52,10 +52,10 @@ class CriclistasController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\criclistas  $criclistas
+     * @param  \App\ciclista  $criclistas
      * @return \Illuminate\Http\Response
      */
-    public function edit(criclistas $criclistas)
+    public function edit(ciclista $criclistas)
     {
         //
     }
@@ -64,10 +64,10 @@ class CriclistasController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\criclistas  $criclistas
+     * @param  \App\ciclista  $criclistas
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, criclistas $criclistas)
+    public function update(Request $request, ciclista $criclistas)
     {
         //
     }
@@ -75,10 +75,10 @@ class CriclistasController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\criclistas  $criclistas
+     * @param  \App\ciclista  $criclistas
      * @return \Illuminate\Http\Response
      */
-    public function destroy(criclistas $criclistas)
+    public function destroy(ciclista $criclistas)
     {
         //
     }

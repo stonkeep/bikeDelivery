@@ -15,7 +15,6 @@ class userTest extends TestCase
     use CreatesApplication, DatabaseMigrations, DatabaseTransactions;
     /**
      * @return void
-     * TODO criação dos testes CRUD
      * @test
      */
     public function cria_usuario()
