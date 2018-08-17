@@ -19,21 +19,17 @@ class ciclistaTest extends TestCase
     use CreatesApplication, DatabaseMigrations, DatabaseTransactions;
     protected $faker;
 
+    /*
+     * prepara os dados para cada teste
+     */
     protected function setUp()
     {
         parent::setUp();
         factory(User::class)->create();
-        $this->faker = Faker::create('pt_BR');
+        $this->faker = Faker::create('pt_BR'); //faker precisa ser setado para o Brasil para criação d CPF
     }
 
-    /**
-     * A basic test example.
-     *
-     * @return void
-     * @test
-     */
-    public function cria_ciclista_e_vincula_a_usuario()
-    {
+    public function criaCiclista() {
         //busca usuário
         $user = User::first();
 
@@ -44,7 +40,18 @@ class ciclistaTest extends TestCase
 
         //Vincula o ciclista ao usuário
         $user->ciclista()->save($ciclista);
+    }
+    /**
+     * A basic test example.
+     *
+     * @return void
+     * @test
+     */
+    public function cria_ciclista_e_vincula_a_usuario()
+    {
+        $this->criaCiclista();
         $user = User::first();
+        $ciclista = Ciclista::first();
 
         //verifica se o nome do ciclista é o mesmo do usuário vinculado
         $this->assertEquals($ciclista->id, $user->ciclista->id);
@@ -58,13 +65,8 @@ class ciclistaTest extends TestCase
         factory(User::class)->create();
 
         //Cria ciclista
-        $ciclista = Ciclista::create([
-            'cpf' => $this->faker->cpf(false)
-        ]);
-
-        //Vincula o ciclista ao usuário
-        $user = User::first();
-        $user->ciclista()->save($ciclista);
+        $this->criaCiclista();
+        $ciclista = Ciclista::firstOrFail();
 
         //Vincula o ciclista ao usuário2
         User::find(2)->ciclista()->save($ciclista);
@@ -77,8 +79,22 @@ class ciclistaTest extends TestCase
 
         //busca o ciclista e verifica se o relacionamento foi corretamente criado
         $this->assertEquals(Ciclista::first()->user->id, 2);
-
     }
+
+    /** @test */
+    public function deleta_ciclista()
+    {
+        //Cria ciclista
+        $this->criaCiclista();
+
+        //Deleta ciclista
+        Ciclista::firstOrFail()->delete();
+
+//        Verifica se o ciclista foi mesmo deletado
+        $this->assertEmpty(Ciclista::first());
+    }
+
+    //TODO criar os teste com as rotas do CRUD
 
     /**
      * Reset the migrations

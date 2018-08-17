@@ -44,4 +44,6 @@ class userTest extends TestCase
         $user = User::first();
         $this->assertEmpty($user);
     }
+
+    //TODO criar as rotas com CRUD
 }
