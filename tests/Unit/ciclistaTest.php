@@ -101,21 +101,45 @@ class ciclistaTest extends TestCase
     /** @test */
     public function cria_ciclista_back_end()
     {
+        //Caso de erro 500 descomentar essa linha para ver qual erro está acontecendo
 //        $this->disableExceptionHandling();
 
+        //cria variavel vazio para testar a validacao
         $data = [];
-//        $this->get(route('ciclistas.index'));
-//
         //testa se os campos estao sendo validados
         $this->post(route('ciclistas.store'), $data)
             ->assertStatus(302);
 
+        //Cria dados para gravação do ciclista
         $data = [
-            'cpf' => $this->faker->cpf(false)
+            'cpf' => $this->faker->cpf(false),
+            'name' => $this->faker->name,
+            'email' => $this->faker->email,
+            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm'
         ];
 
+        // Chama o controle para criar o usuário e o ciclista
         $this->post(route('ciclistas.store'), $data)
             ->assertStatus(200);
+
+        //verifica se o usuário foi criado
+        $this->assertNotEmpty(User::firstOrFail());
+
+        //verifica se o ciclista foi criado
+        $this->assertNotEmpty(Ciclista::firstOrFail());
+    }
+
+    /** @test */
+    public function altera_dados_ciclista_back_end()
+    {
+        $this->cria_ciclista_back_end();
+
+    }
+
+    /** @test */
+    public function deleta_ciclista_back_end()
+    {
+
     }
 
     /**

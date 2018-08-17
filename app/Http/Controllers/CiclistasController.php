@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ciclista;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\ciclistasRquest;
 
@@ -36,9 +37,16 @@ class CiclistasController extends Controller
      */
     public function store(ciclistasRquest $request)
     {
-//        $request->validate([
-//            'cpf' => 'required',
-//        ]);
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'remember_token' => str_random(10),
+        ]);
+        $ciclista = new Ciclista;
+        $ciclista->cpf = $request->cpf;
+        $user->ciclista()->save($ciclista);
+
     }
 
     /**
