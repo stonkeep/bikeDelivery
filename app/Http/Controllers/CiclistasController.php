@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ciclista;
 use Illuminate\Http\Request;
+use App\Http\Requests\ciclistasRquest;
 
 class CiclistasController extends Controller
 {
@@ -14,7 +15,7 @@ class CiclistasController extends Controller
      */
     public function index()
     {
-        //
+        dd('index');
     }
 
     /**
@@ -33,9 +34,11 @@ class CiclistasController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ciclistasRquest $request)
     {
-        //
+//        $request->validate([
+//            'cpf' => 'required',
+//        ]);
     }
 
     /**

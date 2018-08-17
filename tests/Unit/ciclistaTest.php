@@ -6,6 +6,7 @@ use App\ciclista;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Schema;
 use Tests\CreatesApplication;
 use Tests\TestCase;
@@ -16,7 +17,8 @@ use Faker\Factory as Faker;
 
 class ciclistaTest extends TestCase
 {
-    use CreatesApplication, DatabaseMigrations, DatabaseTransactions;
+    use DatabaseMigrations, DatabaseTransactions;
+    use WithoutMiddleware; // use this trait
     protected $faker;
 
     /*
@@ -95,6 +97,26 @@ class ciclistaTest extends TestCase
     }
 
     //TODO criar os teste com as rotas do CRUD
+
+    /** @test */
+    public function cria_ciclista_back_end()
+    {
+//        $this->disableExceptionHandling();
+
+        $data = [];
+//        $this->get(route('ciclistas.index'));
+//
+        //testa se os campos estao sendo validados
+        $this->post(route('ciclistas.store'), $data)
+            ->assertStatus(302);
+
+        $data = [
+            'cpf' => $this->faker->cpf(false)
+        ];
+
+        $this->post(route('ciclistas.store'), $data)
+            ->assertStatus(200);
+    }
 
     /**
      * Reset the migrations
