@@ -133,12 +133,26 @@ class ciclistaTest extends TestCase
     public function altera_dados_ciclista_back_end()
     {
         $this->cria_ciclista_back_end();
-
+        $ciclista = Ciclista::find(1);
+        $cpf = $this->faker->cpf(false);
+        $ciclista->cpf = $cpf;
+        $this->put(route('ciclistas.update', ['ciclista' => $ciclista]), $ciclista->toArray())
+        ->assertStatus(200);
+        $ciclista = Ciclista::find(1);
+        $this->assertEquals($ciclista->cpf, $cpf);
     }
 
     /** @test */
     public function deleta_ciclista_back_end()
     {
+        $this->cria_ciclista_back_end();
+        $ciclista = Ciclista::find(1);
+        $this->delete(route('ciclistas.destroy', ['ciclista' => $ciclista]))
+            //se falhar
+//            ->dump
+            // Vericia se tudo deu certo
+            ->assertStatus(200);
+        $this->assertEmpty(Ciclista::find(1));
 
     }
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\ciclista;
+use App\Ciclista;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\ciclistasRquest;
@@ -52,10 +52,10 @@ class CiclistasController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\ciclista  $criclistas
+     * @param  \App\Ciclista  $ciclista
      * @return \Illuminate\Http\Response
      */
-    public function show(ciclista $criclistas)
+    public function show(Ciclista $ciclista)
     {
         //
     }
@@ -63,10 +63,10 @@ class CiclistasController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\ciclista  $criclistas
+     * @param  \App\Ciclista  $ciclista
      * @return \Illuminate\Http\Response
      */
-    public function edit(ciclista $criclistas)
+    public function edit(Ciclista $ciclista)
     {
         //
     }
@@ -75,22 +75,31 @@ class CiclistasController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ciclista  $criclistas
+     * @param  \App\Ciclista  $ciclista
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ciclista $criclistas)
+    public function update(Request $request, $id)
     {
-        //
+        Ciclista::find($id)->update($request->all());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\ciclista  $criclistas
+     * @param  \App\Ciclista  $ciclista
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ciclista $criclistas)
+    public function destroy($id)
     {
-        //
+        try {
+            Ciclista::find($id)->delete();
+        } catch (\Exception $e) {
+            dd($e);
+//            if ($e->getCode() == "23000") { //23000 is sql code for integrity constraint violation
+//                flash('Resgistro tem dependência, Favor verificar as ligaçõe')->error();
+//            } else {
+//                flash('Erro '.$e->getCode().' ocorreu. Favor verificar com a administração do sistema')->error();
+//            }
+        }
     }
 }
