@@ -37,9 +37,40 @@ class clientesTest extends TestCase
      */
     public function crud_simples()
     {
+        // Cria cliente
         $cliente = factory(Clientes::class)->create();
-        dd($cliente);
+
+        // Busca usuário cadastrado
+        $user = User::firstOrFail();
+
+        // Vincula usuário a cliente em questão
+        $cliente->users()->save($user);
+
+        // verifica se o usuário foi mesmo vinculado ao cliente
+        $cliente = Clientes::firstOrFail();
+        $this->assertEquals($cliente->users[0]->name, $user->name);
+
+        // Altera dados do cliente
+        // Cria um novo CNPJ
+        $cnpj = $this->faker->cnpj(false);
+        // Altera
+        $cliente->cnpj = $cnpj;
+        // Salva no banco de dados
+        $cliente->save();
+        //Busca novamente o cliente np BD
+        $cliente = Clientes::firstOrFail();
+        //Verifica se o CNPJ foi mesmo atualizado
+        $this->assertEquals($cliente->cnpj, $cnpj);
+
+        // Deleta cliente
+        $cliente->delete();
+        // Verifica se foi deletado mesmo
+        $this->assertEmpty(Clientes::first());
+        // verifica se o sofdelete esta funcionando deve retornar um cliente que esta no trash
+        $this->assertNotEmpty(Clientes::onlyTrashed(1));
     }
+
+    //TODO testes utilizando as rotas
 
     /**
      * Reset the migrations
