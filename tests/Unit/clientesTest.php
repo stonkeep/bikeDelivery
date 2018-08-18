@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Clientes;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -34,9 +35,10 @@ class clientesTest extends TestCase
      * @return void
      * @test
      */
-    public function testExample()
+    public function crud_simples()
     {
-        $this->assertTrue(true);
+        $cliente = factory(Clientes::class)->create();
+        dd($cliente);
     }
 
     /**
