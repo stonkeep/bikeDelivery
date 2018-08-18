@@ -156,6 +156,37 @@ class ciclistaTest extends TestCase
 
     }
 
+    /** @test */
+    public function lista_ciclistas_route()
+    {
+        //Cria 5 ciclistas
+        $this->cria_ciclista_back_end();
+        $this->cria_ciclista_back_end();
+        $this->cria_ciclista_back_end();
+        $this->cria_ciclista_back_end();
+        $this->cria_ciclista_back_end();
+
+        // Chama a lista de ciclistas
+        $response = $this->get(route('ciclistas.index'))->json();
+        // Verifica se a quantidade é 5
+        $this->assertCount(5, $response);
+
+        //Deleta um ciclista
+        $ciclista = Ciclista::find(1);
+        $this->delete(route('ciclistas.destroy', ['ciclista' => $ciclista]));
+
+        // Chama a lista de ciclistas
+        $response = $this->get(route('ciclistas.index'))->json();
+        // Verifica se a quantidade é 4
+        $this->assertCount(4, $response);
+
+        //Verifica se o softdelete esta funcionando
+        $this->assertNotEmpty(Ciclista::onlyTrashed());
+        // Verifica se tem somente um softdelete
+        $this->assertCount(1, Ciclista::onlyTrashed()->get());
+
+    }
+
     /**
      * Reset the migrations
      */

@@ -16,7 +16,7 @@ class CiclistasController extends Controller
      */
     public function index()
     {
-        dd('index');
+        return response()->json(Ciclista::all()->toArray());
     }
 
     /**
