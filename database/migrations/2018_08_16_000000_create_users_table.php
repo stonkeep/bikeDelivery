@@ -18,6 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->unsignedInteger('cliente_id')->nullable();
+            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

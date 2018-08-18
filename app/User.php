@@ -40,4 +40,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(Ciclista::class);
     }
+    public function cliente()
+    {
+        return $this->belongsTo(Clientes::class);
+    }
 }
