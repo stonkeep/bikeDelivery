@@ -187,6 +187,16 @@ class ciclistaTest extends TestCase
 
     }
 
+    //TODO mostra detalhes de um ciclista
+    /** @test */
+    public function teste()
+    {
+        $this->cria_ciclista_back_end();
+
+        $response = $this->get(route('ciclistas.show', 1));
+
+    }
+
     /**
      * Reset the migrations
      */

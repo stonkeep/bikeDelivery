@@ -55,9 +55,9 @@ class CiclistasController extends Controller
      * @param  \App\Ciclista  $ciclista
      * @return \Illuminate\Http\Response
      */
-    public function show(Ciclista $ciclista)
+    public function show($id)
     {
-        //
+        return Ciclista::find($id);
     }
 
     /**
