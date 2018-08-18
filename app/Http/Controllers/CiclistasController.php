@@ -6,6 +6,7 @@ use App\Ciclista;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\ciclistasRquest;
+use Illuminate\Support\Facades\Hash;
 
 class CiclistasController extends Controller
 {
@@ -40,7 +41,7 @@ class CiclistasController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
             'remember_token' => str_random(10),
         ]);
         $ciclista = new Ciclista;

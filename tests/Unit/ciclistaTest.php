@@ -115,7 +115,7 @@ class ciclistaTest extends TestCase
             'cpf' => $this->faker->cpf(false),
             'name' => $this->faker->name,
             'email' => $this->faker->email,
-            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm'
+            'password' => '123456'
         ];
 
         // Chama o controle para criar o usuário e o ciclista
