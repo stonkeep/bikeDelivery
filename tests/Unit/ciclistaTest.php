@@ -96,8 +96,6 @@ class ciclistaTest extends TestCase
         $this->assertEmpty(Ciclista::first());
     }
 
-    //TODO criar os teste com as rotas do CRUD
-
     /** @test */
     public function cria_ciclista_back_end()
     {

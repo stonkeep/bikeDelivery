@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Clientes;
+use App\Http\Requests\ClientesRequest;
+use App\User;
 use Illuminate\Http\Request;
 
 class ClientesController extends Controller
@@ -30,12 +32,22 @@ class ClientesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\ClientesRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ClientesRequest $request)
     {
-        //
+        Clientes::create([
+            'cnpj' => $request->cnpj
+        ]);
+    }
+
+    public function gravaUsuarioParaCliente(Request $request){
+        //TODO validar usuário
+        $cliente = Clientes::find($request->clienteId);
+        $user = new User($request->user);
+        $cliente->users()->save($user);
+
     }
 
     /**
@@ -67,9 +79,9 @@ class ClientesController extends Controller
      * @param  \App\Clientes  $clientes
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Clientes $clientes)
+    public function update(Request $request, $id)
     {
-        //
+        Clientes::find($id)->update($request->all());
     }
 
     /**
@@ -78,8 +90,8 @@ class ClientesController extends Controller
      * @param  \App\Clientes  $clientes
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Clientes $clientes)
+    public function destroy($id)
     {
-        //
+        Clientes::find($id)->delete();
     }
 }

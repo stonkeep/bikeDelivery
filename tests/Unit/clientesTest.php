@@ -26,7 +26,7 @@ class clientesTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        factory(User::class)->create();
+//        factory(User::class)->create();
         $this->faker = Faker::create('pt_BR'); //faker precisa ser setado para o Brasil para criação d CPF
     }
     /**
@@ -41,6 +41,7 @@ class clientesTest extends TestCase
         $cliente = factory(Clientes::class)->create();
 
         // Busca usuário cadastrado
+        factory(User::class)->create();
         $user = User::firstOrFail();
 
         // Vincula usuário a cliente em questão
@@ -71,6 +72,63 @@ class clientesTest extends TestCase
     }
 
     //TODO testes utilizando as rotas
+    /** @test */
+    public function cria_cliente_rota()
+    {
+//        $this->disableExceptionHandling();
+        // Verifica se a validação esta funcionando
+        // Deve retorar 302 pois o CNPJ esta faltando
+        $this->post(route('clientes.store'), [])
+        ->assertStatus(302);
+
+        // Cria dados nescessários para cadastrar cliente
+        $data = [
+            'cnpj' => $this->faker->cnpj(false)
+        ];
+
+        // Cadastra cliente
+        $this->post(route('clientes.store'), $data)
+            ->assertStatus(200);
+
+        // Verifica se o cliente foi cadastrado
+        $this->assertNotEmpty(Clientes::first());
+
+
+        //Grava usuário para cliente já cadastrado
+        $this->post(route('clientes.usuario'), [
+            'clienteId' => 1,
+            'user' => [
+                'name' => $this->faker->name,
+                'email' => $this->faker->unique()->safeEmail,
+                'password' => '12345', // secret
+            ]
+        ])
+        ->assertStatus(200);
+        // Verifica se o usuário foi criado
+        $this->assertNotEmpty(User::first());
+
+        //Verifica o vinculo usuário cliente
+        $this->assertNotEmpty(User::firstOrFail()->cliente());
+
+        //Altera os dados do cliente
+        //Cria um novo cnpj
+        $cnpj = $this->faker->cnpj(false);
+        $data = [
+            'cnpj' => $cnpj
+        ];
+        $this->put(route('clientes.update', Clientes::first()), $data)
+        ->assertStatus(200);
+
+        // Valida se o cnpj foi atualizado realmente
+        $this->assertEquals($cnpj, Clientes::firstOrFail()->cnpj);
+
+        // Deleta cliente
+        $this->delete(route('clientes.destroy', Clientes::first()))
+        ->assertStatus(200);
+
+        // Valida se o cliente foi mesmo deletado
+        $this->assertEmpty(Clientes::first());
+    }
 
     /**
      * Reset the migrations
