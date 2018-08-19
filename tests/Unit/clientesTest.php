@@ -30,8 +30,6 @@ class clientesTest extends TestCase
         $this->faker = Faker::create('pt_BR'); //faker precisa ser setado para o Brasil para criação d CPF
     }
     /**
-     * A basic test example.
-     *
      * @return void
      * @test
      */
@@ -128,6 +126,13 @@ class clientesTest extends TestCase
 
         // Valida se o cliente foi mesmo deletado
         $this->assertEmpty(Clientes::first());
+
+        // Valida se o softdelete esta funcionando
+        $this->assertNotEmpty(Clientes::onlyTrashed(1)->get());
+
+        // Valida se os usuários também foram deletados
+        dd(User::all()->toArray());
+        $this->assertNotEmpty(Clientes::onlyTrashed(1)->get()[0]->users()->get()[0]);
     }
 
     /**
