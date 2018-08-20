@@ -131,8 +131,8 @@ class clientesTest extends TestCase
         $this->assertNotEmpty(Clientes::onlyTrashed(1)->get());
 
         // Valida se os usuários também foram deletados
-        dd(User::all()->toArray());
-        $this->assertNotEmpty(Clientes::onlyTrashed(1)->get()[0]->users()->get()[0]);
+        dd(Clientes::onlyTrashed(1)->get()[0]->users());
+        $this->assertEmpty(Clientes::onlyTrashed(1)->get()[0]->users()->get()[0]);
     }
 
     /**
