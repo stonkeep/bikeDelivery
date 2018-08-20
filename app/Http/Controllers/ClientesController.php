@@ -56,9 +56,9 @@ class ClientesController extends Controller
      * @param  \App\Clientes  $clientes
      * @return \Illuminate\Http\Response
      */
-    public function show(Clientes $clientes)
+    public function show($id)
     {
-        //
+        return response()->json(Clientes::find($id));
     }
 
     /**

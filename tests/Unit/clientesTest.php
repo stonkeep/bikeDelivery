@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Support\Facades\Schema;
+use Symfony\Component\HttpKernel\Client;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -108,6 +109,10 @@ class clientesTest extends TestCase
         //Verifica o vinculo usuário cliente
         $this->assertNotEmpty(User::firstOrFail()->cliente());
 
+        //Busca do detalhes do cliente
+        //TODO ver como vai ficar o retorno dos dados
+        $response = $this->get(route('clientes.show', Clientes::firstOrFail()->id));
+
         //Altera os dados do cliente
         //Cria um novo cnpj
         $cnpj = $this->faker->cnpj(false);
@@ -131,8 +136,7 @@ class clientesTest extends TestCase
         $this->assertNotEmpty(Clientes::onlyTrashed(1)->get());
 
         // Valida se os usuários também foram deletados
-        dd(Clientes::onlyTrashed(1)->get()[0]->users());
-        $this->assertEmpty(Clientes::onlyTrashed(1)->get()[0]->users()->get()[0]);
+        $this->assertEmpty(Clientes::onlyTrashed(1)->get()[0]->users()->get());
     }
 
     /**
