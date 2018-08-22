@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\entregas;
+use App\Pedidos;
 use Illuminate\Http\Request;
 
-class EntregasController extends Controller
+class PedidosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class EntregasController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\entregas  $entregas
+     * @param  \App\Pedidos  $pedidos
      * @return \Illuminate\Http\Response
      */
-    public function show(entregas $entregas)
+    public function show(Pedidos $pedidos)
     {
         //
     }
@@ -52,10 +52,10 @@ class EntregasController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\entregas  $entregas
+     * @param  \App\Pedidos  $pedidos
      * @return \Illuminate\Http\Response
      */
-    public function edit(entregas $entregas)
+    public function edit(Pedidos $pedidos)
     {
         //
     }
@@ -64,10 +64,10 @@ class EntregasController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\entregas  $entregas
+     * @param  \App\Pedidos  $pedidos
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, entregas $entregas)
+    public function update(Request $request, Pedidos $pedidos)
     {
         //
     }
@@ -75,10 +75,10 @@ class EntregasController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\entregas  $entregas
+     * @param  \App\Pedidos  $pedidos
      * @return \Illuminate\Http\Response
      */
-    public function destroy(entregas $entregas)
+    public function destroy(Pedidos $pedidos)
     {
         //
     }

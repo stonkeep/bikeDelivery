@@ -1,10 +1,13 @@
 <?php
 
 use App\User;
-use Faker\Generator as Faker;
+//use Faker\Generator as Faker;
+use Faker\Factory as Faker;
 
-$factory->define(App\ciclista::class, function (Faker $faker) {
+
+$factory->define(App\ciclista::class, function () {
+    $faker = Faker::create('pt_BR');
     return [
-        'nome' => $faker->name,
+        'cpf' => $faker->cpf(false),
     ];
 });
