@@ -16,6 +16,6 @@ class Pedidos extends Pivot
     }
 
     public function cliente() {
-        return $this->belongsTo(Clientes::class);
+        return $this->belongsTo('App\Clientes', 'clientes_id');
     }
 }

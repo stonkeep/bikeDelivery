@@ -15,6 +15,7 @@ class Ciclista extends Model
     {
         return $this->belongsTo(User::class);
     }
+
     public function pedidos() {
         return $this->hasMany(Pedidos::class);
     }

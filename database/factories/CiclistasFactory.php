@@ -5,7 +5,7 @@ use App\User;
 use Faker\Factory as Faker;
 
 
-$factory->define(App\ciclista::class, function () {
+$factory->define(App\Ciclista::class, function () {
     $faker = Faker::create('pt_BR');
     return [
         'cpf' => $faker->cpf(false),
