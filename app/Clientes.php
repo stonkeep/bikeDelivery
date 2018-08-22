@@ -22,4 +22,8 @@ class Clientes extends Model
     public function enderecos() {
         return $this->hasMany(Enderecos::class);
     }
+
+    public function pedidos() {
+        return $this->hasMany(Pedidos::class);
+    }
 }
