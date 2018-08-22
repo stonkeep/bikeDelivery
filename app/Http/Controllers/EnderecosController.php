@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Clientes;
 use App\enderecos;
+use App\Http\Requests\EnderecosRequest;
 use Illuminate\Http\Request;
 
 class EnderecosController extends Controller
@@ -30,23 +32,24 @@ class EnderecosController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\EnderecosRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EnderecosRequest $request)
     {
-        //
+        $endereco = new Enderecos($request->endereco);
+        Clientes::find($request->cliente)->enderecos()->save($endereco);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\enderecos  $enderecos
+     * @param  \App\Enderecos  $enderecos
      * @return \Illuminate\Http\Response
      */
-    public function show(enderecos $enderecos)
+    public function show($id)
     {
-        //
+        return response()->json(Enderecos::find($id));
     }
 
     /**
@@ -67,9 +70,9 @@ class EnderecosController extends Controller
      * @param  \App\enderecos  $enderecos
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, enderecos $enderecos)
+    public function update(Request $request, $id)
     {
-        //
+        Enderecos::find($id)->update($request->endereco);
     }
 
     /**
@@ -78,8 +81,9 @@ class EnderecosController extends Controller
      * @param  \App\enderecos  $enderecos
      * @return \Illuminate\Http\Response
      */
-    public function destroy(enderecos $enderecos)
+    public function destroy($id)
     {
-        //
+
+        Enderecos::find($id)->delete();
     }
 }

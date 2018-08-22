@@ -12,10 +12,14 @@ class Clientes extends Model
 
     protected $guarded = [];
 
-    protected $softCascade = ['users'];
+    protected $softCascade = ['users', 'enderecos'];
 
     public function users()
     {
         return $this->hasMany(User::class);
+    }
+
+    public function enderecos() {
+        return $this->hasMany(Enderecos::class);
     }
 }

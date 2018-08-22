@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class PrimeiroCreateTable extends Migration
 {
     /**
      * Run the migrations.
@@ -32,13 +32,6 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-
-        Schema::create('enderecos', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('clientes_id')->nullable();
-            $table->foreign('clientes_id')->references('id')->on('clientes')->onDelete('cascade');
-            $table->timestamps();
-        });
     }
 
     /**
@@ -49,7 +42,6 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
-        Schema::dropIfExists('enderecos');
         Schema::dropIfExists('clientes');
 
     }

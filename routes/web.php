@@ -21,3 +21,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('ciclistas', 'CiclistasController');
 Route::resource('clientes', 'ClientesController');
 Route::post('clientes/usuario', 'ClientesController@gravaUsuarioParaCliente')->name('clientes.usuario');
+Route::resource('enderecos', 'EnderecosController');
