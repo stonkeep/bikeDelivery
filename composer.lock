@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a7472573435b4052dd9460a8ae0cfb83",
+    "content-hash": "5a5d1d9ca160f5db032b4d56c24e817d",
     "packages": [
         {
             "name": "askedio/laravel-soft-cascade",
@@ -1856,16 +1856,16 @@
         },
         {
             "name": "spatie/laravel-permission",
-            "version": "2.12.1",
+            "version": "2.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-permission.git",
-                "reference": "c352d83ecb5efb2d68169a1de7b7e263135ad807"
+                "reference": "364b48d59eba89700bc413a71ad3763ce3140d40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/c352d83ecb5efb2d68169a1de7b7e263135ad807",
-                "reference": "c352d83ecb5efb2d68169a1de7b7e263135ad807",
+                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/364b48d59eba89700bc413a71ad3763ce3140d40",
+                "reference": "364b48d59eba89700bc413a71ad3763ce3140d40",
                 "shasum": ""
             },
             "require": {
@@ -1916,7 +1916,7 @@
                 "security",
                 "spatie"
             ],
-            "time": "2018-04-23T19:06:39+00:00"
+            "time": "2018-08-20T18:54:54+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
