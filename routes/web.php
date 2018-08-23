@@ -24,9 +24,14 @@ Route::resource('ciclistas', 'CiclistasController');
 //Rotas para clientes
 Route::resource('clientes', 'ClientesController');
 //Rota para o cliente cadastrar um usuário
-//TODO fazer a calidação de permissão
 Route::post('clientes/usuario', 'ClientesController@gravaUsuarioParaCliente')->name('clientes.usuario');
 Route::resource('enderecos', 'EnderecosController');
 
 //Rotas para pedidos
 Route::resource('pedidos', 'PedidosController');
+
+Route::resource('users', 'UserController');
+
+Route::resource('roles', 'RoleController');
+
+Route::resource('permissions', 'PermissionController');
