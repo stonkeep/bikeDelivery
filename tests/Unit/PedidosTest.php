@@ -114,7 +114,6 @@ class PedidosTest extends TestCase
         $this->assertEmpty(Pedidos::first());
         //verifica se o softdelete esta funcionando
         $this->assertNotEmpty(Pedidos::onlyTrashed(1));
-
     }
 
     /**
