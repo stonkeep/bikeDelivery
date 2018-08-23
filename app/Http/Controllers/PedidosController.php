@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PedidosRequest;
 use App\Pedidos;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PedidosController extends Controller
 {
@@ -30,12 +33,14 @@ class PedidosController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\PedidosRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PedidosRequest $request)
     {
-        //
+        $pedido = Pedidos::create($request->all());
+        $user = Auth::user();
+        $user->cliente->pedidos()->save($pedido);
     }
 
     /**
@@ -46,7 +51,7 @@ class PedidosController extends Controller
      */
     public function show(Pedidos $pedidos)
     {
-        //
+        return response()->json($pedidos->get());
     }
 
     /**
@@ -67,9 +72,10 @@ class PedidosController extends Controller
      * @param  \App\Pedidos  $pedidos
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pedidos $pedidos)
+    public function update(Request $request, $id)
     {
-        //
+        Pedidos::find(1)->update($request->all()[0]);
+        return response()->json(Pedidos::find($id));
     }
 
     /**
@@ -78,8 +84,8 @@ class PedidosController extends Controller
      * @param  \App\Pedidos  $pedidos
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pedidos $pedidos)
+    public function destroy($id)
     {
-        //
+        Pedidos::find($id)->delete();
     }
 }

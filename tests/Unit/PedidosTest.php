@@ -5,9 +5,11 @@ namespace Tests\Unit;
 use App\Ciclista;
 use App\Clientes;
 use App\Pedidos;
+use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -72,17 +74,46 @@ class PedidosTest extends TestCase
     public function crud_de_rotas()
     {
         //cria cliente
-        factory(Clientes::class, 3)->create();
-        $cliente = Clientes::firstOrFail();
+        factory(Clientes::class, 2)->create();
+        //Cria usuário
+        factory(User::class)->create();
+        $user = User::firstOrFail();
+        //Vincula cliente e usuárip
+        Clientes::firstOrFail()->users()->save($user);
+        //Verifica se usuário foi vinculado a lciente
+        $this->assertNotEmpty(User::firstOrFail()->cliente);
         //cria ciclista
         factory(Ciclista::class, 3)->create();
-        //testa validacao do pedido
-        $this->post(route('pedidos.store'), []);
-        //cadastra pedido
+        //testa validacao do pedido status 302 esperado
+//        $this->post(route('pedidos.store'), [])
+//        ->assertStatus(302);
+        //cadastra pedido status 200 esperado
+        $this->actingAs($user)->post(route('pedidos.store'), [])
+            ->assertStatus(200);
+        //Verifica se foi mesmo gravado
+        $this->assertNotEmpty(Pedidos::firstOrFail());
+        //Verifica se o pedido esta vinculado ao cliente
+        $this->assertEquals(Clientes::firstOrFail(), Pedidos::firstOrFail()->cliente);
         //le pedido
+        $response = $this->get(route('pedidos.show', Pedidos::firstOrFail()))
+            ->assertStatus(200)
+        ->assertJsonCount(1)->assertOk()->assertSuccessful();
+        $response->assertOk();
+        //Verifica se não voltou vazio
+        $this->assertNotEmpty($response->decodeResponseJson());
+
         //altera pedido
+        $pedido2 = $pedido = Pedidos::firstOrFail();
+        $pedido2->cliente()->associate(Clientes::find(2));
+        $this->put(route('pedidos.update', $pedido), $pedido2->get()->toArray())
+            ->assertSuccessful()
+            ->assertOk();
         //deleta pedido
+        $this->delete(route('pedidos.destroy', Pedidos::firstOrFail()));
+        //Verifica se foi mesmo deletado
+        $this->assertEmpty(Pedidos::first());
         //verifica se o softdelete esta funcionando
+        $this->assertNotEmpty(Pedidos::onlyTrashed(1));
 
     }
 

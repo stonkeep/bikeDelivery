@@ -42,6 +42,6 @@ class User extends Authenticatable
     }
     public function cliente()
     {
-        return $this->belongsTo(Clientes::class);
+        return $this->belongsTo(Clientes::class, 'clientes_id');
     }
 }
